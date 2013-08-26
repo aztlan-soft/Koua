@@ -1,4 +1,4 @@
-#Koua#
+Koua
 ====
 by AztlanSoft
 **Koua** allows you to track your finances all in once place.
