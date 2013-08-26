@@ -14,9 +14,7 @@ by AztlanSoft
 Use Git to clone Koua repository to your disk: 
 
 ```
-$ git clone git://github.com/alopmar/Koua.git
-cd Koua
-$ git submodule init && git submodule update
+$ git clone https://github.com/alopmar/Koua.git
 ```
 
 ## Configure Android Studio SDK location
