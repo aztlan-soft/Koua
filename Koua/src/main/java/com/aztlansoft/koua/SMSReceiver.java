@@ -3,11 +3,16 @@ package com.aztlansoft.koua;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.aztlansoft.koua.dao.DaoMaster;
+import com.aztlansoft.koua.dao.DaoMaster.DevOpenHelper;
+import com.aztlansoft.koua.dao.DaoSession;
+import com.aztlansoft.koua.dao.KouaMessageDao;
 import com.aztlansoft.koua.model.KouaMessage;
 import com.aztlansoft.koua.utils.SmsParserImpl;
 
@@ -16,6 +21,11 @@ import com.aztlansoft.koua.utils.SmsParserImpl;
  */
 public class SMSReceiver extends BroadcastReceiver
 {
+  private SQLiteDatabase db;
+  private DevOpenHelper helper;
+  private DaoSession daoSession;
+  private DaoMaster daoMaster;
+  private KouaMessageDao kouaMessageDao;
 
   // Get the class name to log events
   private final String TAG = this.getClass().getSimpleName();
@@ -29,12 +39,13 @@ public class SMSReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
+    helper = new DaoMaster.DevOpenHelper(Koua.getInstance(), "koua-db", null);
+    db = helper.getWritableDatabase();
+    daoMaster = new DaoMaster(db);
+    daoSession = daoMaster.newSession();
+    kouaMessageDao = daoSession.getKouaMessageDao();
+
     String smsData;
-
-    // ToDo: Remove Logs and Toast messages used for testing
-    // Log.d(TAG, intent.getAction().toString());
-
-    //Toast.makeText(context, TAG + intent.getAction().toString(), Toast.LENGTH_SHORT).show();
 
     // Get the intent extras with the PDU information
     Bundle pdusBundle = intent.getExtras();
@@ -59,10 +70,10 @@ public class SMSReceiver extends BroadcastReceiver
 
         kouamsg = parser.Process(smsData);
 
-        if(kouamsg != null)
+        if (kouamsg != null)
         {
-          String text = "Movimiento: " + kouamsg.GetOperacion() +" " + "Monto: " + kouamsg.GetMonto() + " " + "Autorizacion: " + " " + kouamsg.GetAutorizacion() + " " + "Fecha: " + kouamsg.GetFecha();
-          Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+          kouaMessageDao.insert(kouamsg);
+          Toast.makeText(context, "New KouaMessage ID:" + kouamsg.getId(), Toast.LENGTH_LONG).show();
         }
       }
 

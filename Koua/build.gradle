@@ -18,12 +18,17 @@ dependencies {
 
 dependencies {
     compile files('libs/commons-lang3-3.1.jar')
+    compile files('libs/greendao-1.3.2.jar')
 }
 
 
 android {
     compileSdkVersion 17
     buildToolsVersion "17.0.0"
+
+    sourceSets {
+        instrumentTest.setRoot('src/instrumentTest')
+    }
 
     defaultConfig {
         minSdkVersion 11

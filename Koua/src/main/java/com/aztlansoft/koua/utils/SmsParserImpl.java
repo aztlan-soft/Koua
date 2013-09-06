@@ -6,10 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.math.BigDecimal;
-
 import com.aztlansoft.koua.model.*;
-
 import org.apache.commons.lang3.StringUtils;
 
 public class SmsParserImpl implements SmsParser
@@ -52,13 +49,13 @@ public class SmsParserImpl implements SmsParser
     {
       if (eachString.equals("Retiro/Compra") || eachString.equals("Deposito"))
       {
-        msg.SetOperacion(eachString);
+        msg.setOperacion(eachString);
       } else if (eachString.startsWith("$"))
       {
         String montoStr = eachString.substring(1);
-        BigDecimal monto = new BigDecimal(montoStr);
+        // BigDecimal monto = new BigDecimal(montoStr);
 
-        msg.SetMonto(monto);
+        msg.setMonto(montoStr);
       }
 
       if (firstDatePart == null)
@@ -74,7 +71,7 @@ public class SmsParserImpl implements SmsParser
 
         if (TryToParse(fullDate, "dd/MM/yy HH:mm:ss"))
         {
-          msg.SetFecha(fullDate);
+          msg.setFecha(fullDate);
         }
       }
     }
@@ -83,7 +80,7 @@ public class SmsParserImpl implements SmsParser
     Matcher m = p.matcher(message);
     if (m.find())
     {
-      msg.SetAutorizacion(m.group(1));
+      msg.setAutorizacion(m.group(1));
     }
 
     return msg;
