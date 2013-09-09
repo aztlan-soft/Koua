@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.aztlansoft.koua.dao.DaoMaster;
 import com.aztlansoft.koua.dao.DaoMaster.DevOpenHelper;
 import com.aztlansoft.koua.dao.DaoSession;
@@ -67,13 +66,11 @@ public class SMSReceiver extends BroadcastReceiver
       if (valid)
       {
         KouaMessage kouamsg;
-
         kouamsg = parser.Process(smsData);
-
         if (kouamsg != null)
         {
           kouaMessageDao.insert(kouamsg);
-          Toast.makeText(context, "New KouaMessage ID:" + kouamsg.getId(), Toast.LENGTH_LONG).show();
+          Toast.makeText(context,  Koua.getInstance().getResources().getString(R.string.new_message) , Toast.LENGTH_LONG).show();
         }
       }
 
