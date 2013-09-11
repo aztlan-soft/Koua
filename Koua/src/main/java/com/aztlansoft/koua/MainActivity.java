@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 /**
  * Main Activity used to start the ServiceCommunication service
@@ -24,6 +25,13 @@ public class MainActivity extends Activity
     Intent intent = new Intent(this, ServiceCommunicator.class);
     startService(intent);
   }
+
+  public void viewRecords(View view)
+  {
+    Intent intent = new Intent(this, Records.class);
+    startActivity(intent);
+  }
+
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu)

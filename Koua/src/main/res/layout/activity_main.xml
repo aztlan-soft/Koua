@@ -14,4 +14,12 @@
         android:layout_height="wrap_content"
         android:text="@string/welcome"/>
 
+    <Button
+        android:id="@+id/view_records_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="viewRecords"
+        android:text="@string/title_activity_records"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

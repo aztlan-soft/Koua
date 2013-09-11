@@ -9,5 +9,7 @@
     <string name="title_activity_main">Koua</string>
     <string name="new_message">Nuevo mensaje</string>
     <string name="welcome">Bienvenido!</string>
-
+    <string name="title_activity_records">Registros</string>
+    <string name="record_button">Ver Registros</string>
+    <string name="record">Registro</string>
 </resources>
